@@ -12,14 +12,21 @@ env:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
-      - run: echo hello
-
+      - uses: actions/checkout@master
+      - name: Build
+        run: cargo build --release --verbose
+      - name: Upload
+        uses: actions/upload-artifact@v3
+        with:
+          name: Binary
+          path: |
+            target/release/hi-rust-release.exe
   build2:
 
-    runs-on: centos-latest
+    runs-on: ubuntu-latest
 
     steps:
       - run: cat /etc/os-release
