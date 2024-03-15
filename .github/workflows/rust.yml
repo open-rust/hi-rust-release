@@ -11,25 +11,31 @@ env:
 
 jobs:
   build:
-
     runs-on: windows-latest
-
+    outputs:
+      artifact-id: ${{ steps.artifact-upload-step.outputs.artifact-id }}
     steps:
       - uses: actions/checkout@master
       - name: Build
         run: cargo build --release --verbose
       - name: Upload
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
+        id: artifact-upload-step
         with:
           name: Binary
           path: |
             target/release/hi-rust-release.exe
+      - name: Output artifact ID
+        run:  echo 'Artifact ID is ${{ steps.artifact-upload-step.outputs.artifact-id }}'
+
   build2:
-
     runs-on: ubuntu-latest
-
     steps:
       - run: cat /etc/os-release
+      - env:
+        OUTPUT1: ${{needs.build.outputs.artifact-id}}
+        run: echo "Artifact ID from previous job is $OUTPUT1"
+
 
 permissions:
   contents: write
