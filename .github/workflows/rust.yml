@@ -12,10 +12,17 @@ env:
 jobs:
   build:
 
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       - run: echo hello
+
+  build2:
+
+    runs-on: centos-latest
+
+    steps:
+      - run: cat /etc/os-release
 
 permissions:
   contents: write
