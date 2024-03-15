@@ -15,17 +15,14 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Build
-      run: cargo build --release --verbose
-    - name: GH Release
-      uses: softprops/action-gh-release@v2.0.2
-      if: startsWith(github.ref, 'refs/tags/')
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        files: |
-          target/release/hi-rust-release.exe
+      - uses: actions/checkout@master
+      - name: Compile and release
+        uses: rust-build/rust-build.action@v1.4.5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          RUSTTARGET: x86_64-pc-windows-msvc
+          ARCHIVE_TYPES: zip
 
 permissions:
   contents: write
-  
