@@ -17,7 +17,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build
-      run: cargo build target --verbose
+      run: cargo build --release --verbose
     - name: GH Release
       uses: softprops/action-gh-release@v2.0.2
       if: startsWith(github.ref, 'refs/tags/')
