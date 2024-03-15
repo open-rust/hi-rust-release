@@ -34,7 +34,7 @@ jobs:
     steps:
       - run: cat /etc/os-release
       - env:
-        OUTPUT1: ${{needs.build.outputs.artifact-id}}
+          OUTPUT1: ${{needs.build.outputs.artifact-id}}
         run: echo "Artifact ID from previous job is $OUTPUT1"
 
 
