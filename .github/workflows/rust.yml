@@ -52,7 +52,7 @@ jobs:
           name: Binary-${{ matrix.os }}
       - run: ls -lih
       - name: GH Release for ${{ matrix.os }}
-      - uses: softprops/action-gh-release@v2.0.2
+        uses: softprops/action-gh-release@v2.0.2
         if: startsWith(github.ref, 'refs/tags/')
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
