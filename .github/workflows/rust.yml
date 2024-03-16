@@ -38,7 +38,9 @@ jobs:
         run: echo "Artifact ID from previous job is $OUTPUT1"
       - env:
           OUTPUT1: ${{needs.build.outputs.artifact-url}}
-        run: wget -O output $OUTPUT1 --header="Authorization:token ${{ secrets.GITHUB_TOKEN }}"
+        run: |
+          echo wget -O output $OUTPUT1 --header="Authorization:token ${{ secrets.GITHUB_TOKEN }}"
+          wget -O output $OUTPUT1 --header="Authorization:token ${{ secrets.GITHUB_TOKEN }}"
       - run: ls -lih
 
 permissions:
