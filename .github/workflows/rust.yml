@@ -11,7 +11,14 @@ env:
 
 jobs:
   build:
-    runs-on: windows-latest
+    name: build on ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+          - os: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     outputs:
       artifact-url: ${{ steps.artifact-upload-step.outputs.artifact-url }}
     steps:
