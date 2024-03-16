@@ -56,7 +56,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           files: |
-            target/release/hi-rust-release*
+            hi-rust-release*
 
 permissions:
   contents: write
