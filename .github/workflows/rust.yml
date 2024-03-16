@@ -16,7 +16,9 @@ jobs:
       matrix:
         include:
           - os: windows-latest
+            file: target/release/hi-rust-release.exe
           - os: ubuntu-latest
+            file: target/release/hi-rust-release
     runs-on: ${{ matrix.os }}
     outputs:
       artifact-url: ${{ steps.artifact-upload-step.outputs.artifact-url }}
@@ -29,8 +31,7 @@ jobs:
         id: artifact-upload-step
         with:
           name: Binary-${{ matrix.os }}
-          path: |
-            target/release/hi-rust-release*
+          path: ${{ matrix.file }}
       - name: Output artifact ID
         run:  echo 'Artifact ID is ${{ steps.artifact-upload-step.outputs.artifact-url }}'
 
