@@ -37,10 +37,9 @@ jobs:
           OUTPUT1: ${{needs.build.outputs.artifact-url}}
         run: echo "Artifact ID from previous job is $OUTPUT1"
       - env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OUTPUT1: ${{needs.build.outputs.artifact-url}}
-        run: |
-          echo wget -O output $OUTPUT1 --header="Authorization:token ${{ secrets.GITHUB_TOKEN }}"
-          wget -O output $OUTPUT1 --header="Authorization:token ${{ secrets.GITHUB_TOKEN }}"
+        run: curl -v -H "Authorization:\ token\ $TOKEN" $OUTPUT1
       - run: ls -lih
 
 permissions:
