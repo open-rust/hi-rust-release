@@ -24,7 +24,7 @@ jobs:
         with:
           name: Binary
           path: |
-            target/release/hi-rust-release.exe
+            target/release/hi-rust-release*
       - name: Output artifact ID
         run:  echo 'Artifact ID is ${{ steps.artifact-upload-step.outputs.artifact-url }}'
 
