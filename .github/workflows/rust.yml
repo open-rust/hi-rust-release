@@ -33,13 +33,9 @@ jobs:
     needs: build
     steps:
       - run: cat /etc/os-release
-      - env:
-          OUTPUT1: ${{needs.build.outputs.artifact-url}}
-        run: echo "Artifact ID from previous job is $OUTPUT1"
-      - env:
-          TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          OUTPUT1: ${{needs.build.outputs.artifact-url}}
-        run: curl -o output -H "Authorization:\ token\ ${{ secrets.GITHUB_TOKEN }}" $OUTPUT1
+      - uses: actions/download-artifact@v4
+        with:
+          name: Binary
       - run: ls -lih
 
 permissions:
