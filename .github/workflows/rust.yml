@@ -39,7 +39,7 @@ jobs:
       - env:
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OUTPUT1: ${{needs.build.outputs.artifact-url}}
-        run: wget -O output --header="Authorization:\ token\ ${{ secrets.GITHUB_TOKEN }}" $OUTPUT1
+        run: curl -o output --header="Authorization:\ token\ ${{ secrets.GITHUB_TOKEN }}" $OUTPUT1
       - run: ls -lih
 
 permissions:
