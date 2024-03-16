@@ -35,10 +35,9 @@ jobs:
       - run: cat /etc/os-release
       - env:
           OUTPUT1: ${{needs.build.outputs.artifact-url}}
-        run: |
-          echo "Artifact ID from previous job is $OUTPUT1"
-          wget -O output $OUTPUT1 --header="Authorization: token $PERSONAL_TOKEN"
-          ls -lih
+        run: echo "Artifact ID from previous job is $OUTPUT1"
+      - run: wget -O output $OUTPUT1 --header="Authorization: token ${{ secrets.GITHUB_TOKEN }}"
+      - run: ls -lih
 
 permissions:
   contents: write
