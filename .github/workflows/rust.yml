@@ -13,7 +13,7 @@ jobs:
   build:
     runs-on: windows-latest
     outputs:
-      artifact-id: ${{ steps.artifact-upload-step.outputs.artifact-id }}
+      artifact-url: ${{ steps.artifact-upload-step.outputs.artifact-url }}
     steps:
       - uses: actions/checkout@master
       - name: Build
@@ -26,7 +26,7 @@ jobs:
           path: |
             target/release/hi-rust-release.exe
       - name: Output artifact ID
-        run:  echo 'Artifact ID is ${{ steps.artifact-upload-step.outputs.artifact-id }}'
+        run:  echo 'Artifact ID is ${{ steps.artifact-upload-step.outputs.artifact-url }}'
 
   build2:
     runs-on: ubuntu-latest
@@ -34,9 +34,11 @@ jobs:
     steps:
       - run: cat /etc/os-release
       - env:
-          OUTPUT1: ${{needs.build.outputs.artifact-id}}
-        run: echo "Artifact ID from previous job is $OUTPUT1"
-
+          OUTPUT1: ${{needs.build.outputs.artifact-url}}
+        run: |
+          echo "Artifact ID from previous job is $OUTPUT1"
+          wget -O output $OUTPUT1
+          ls -lih
 
 permissions:
   contents: write
