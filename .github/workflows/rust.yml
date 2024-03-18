@@ -8,17 +8,18 @@ on:
 env:
   CARGO_TERM_COLOR: always
 
+matrix:
+  include:
+    - os: windows-latest
+      file: target/release/hi-rust-release.exe
+    - os: ubuntu-latest
+      file: target/release/hi-rust-release
+
 jobs:
   build:
     name: build on ${{ matrix.os }}
     strategy:
       fail-fast: false
-      matrix:
-        include:
-          - os: windows-latest
-            file: target/release/hi-rust-release.exe
-          - os: ubuntu-latest
-            file: target/release/hi-rust-release
     runs-on: ${{ matrix.os }}
     outputs:
       artifact-url: ${{ steps.artifact-upload-step.outputs.artifact-url }}
@@ -39,10 +40,6 @@ jobs:
     name: downloading Binary-${{ matrix.os }}
     strategy:
       fail-fast: false
-      matrix:
-        include:
-          - os: windows-latest
-          - os: ubuntu-latest
     runs-on: ubuntu-latest
     needs: build
     steps:
