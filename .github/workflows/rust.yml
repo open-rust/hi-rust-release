@@ -4,6 +4,7 @@ on:
   push:
     tags:
       - "v*.*.*"
+  workflow_dispatch:
 
 env:
   CARGO_TERM_COLOR: always
@@ -27,15 +28,15 @@ jobs:
       - name: Build
         run: cargo build --release --verbose
       - name: Upload
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@master
         id: artifact-upload-step
         with:
           name: Binary-${{ matrix.os }}
           path: ${{ matrix.file }}
-      - name: Output artifact ID
-        run:  echo 'Artifact ID is ${{ steps.artifact-upload-step.outputs.artifact-url }}'
+      - name: Output artifact URL
+        run:  echo 'Artifact URL is ${{ steps.artifact-upload-step.outputs.artifact-url }}'
 
-  build2:
+  release:
     name: downloading Binary-${{ matrix.os }}
     strategy:
       fail-fast: false
